@@ -29,7 +29,7 @@ def processData(inFile, classification):
     # classify
     frames["classification"] = 1 if classification == "dancing" else 0
 
-    return frames[start_frame:end_frame]
+    return frames.iloc[start_frame:end_frame]
 
 res = None
 for file in os.listdir(os.getcwd()):
@@ -39,7 +39,7 @@ for file in os.listdir(os.getcwd()):
 		res = processData(file,"not dancing")
 
 	if res is not None:
-		data = pd.concat([data,res], sort=False)
+		data = pd.concat([data, res], sort=False)
 	res = None
 
 print(len(data))
