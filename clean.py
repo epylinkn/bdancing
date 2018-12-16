@@ -5,12 +5,12 @@ import pandas as pd
 frames_per_batch = 5
 timesteps = 1000
 start_frame = 100 // frames_per_batch
-end_frame = (start_frame + timesteps) // frames_per_batch
+end_frame = (100 + timesteps) // frames_per_batch
 
 columns = pd.read_csv("columns.tsv", sep="\t").columns
 
 # create empty dataset for training
-data = pd.DataFrame(columns = columns)
+data = pd.DataFrame(columns=columns)
 
 def processData(inFile, classification):
     frames = pd.read_csv(inFile, sep="\t", usecols=columns);
@@ -26,8 +26,8 @@ def processData(inFile, classification):
         dkey = col[0:-2] + 'd' + col[-1]
         frames[dkey] = frames[col].diff()
 
-    # classify
     frames["classification"] = 1 if classification == "dancing" else 0
+    #frames["user"] = inFile
 
     return frames.iloc[start_frame:end_frame]
 
